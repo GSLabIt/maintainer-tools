@@ -21,9 +21,9 @@ def gen_one_addon_icon(icon_dir, src_icon=None, filetype=ICON_TYPE):
     icon_filename = os.path.join(icon_dir, "icon.%s" % filetype)
     if not src_icon:
         src_icon = os.path.join(
-            os.path.dirname(__file__).rpartition("tools")[0],
-            "template",
-            "module",
+            os.path.dirname(__file__).rpartition('tools')[0],
+            'ooops-template',
+            'module',
             ICONS_DIR,
             "icon.%s" % filetype,
         )
