@@ -22,7 +22,7 @@ def gen_one_addon_icon(icon_dir, src_icon=None, filetype=ICON_TYPE):
     if not src_icon:
         src_icon = os.path.join(
             os.path.dirname(__file__).rpartition('tools')[0],
-            'template',
+            'ooops-template',
             'module',
             ICONS_DIR,
             'icon.%s' % filetype,
