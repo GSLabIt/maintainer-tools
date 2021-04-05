@@ -6,10 +6,9 @@ import requests
 
 REPO_ID_LINE_RE = re.compile(r"^(?P<repo_id>[0-9]+)\|github\.com/OCA/(?P<repo_name>.*)")
 
-REPOS_WITH_IDS_URL = (
-    "https://raw.githubusercontent.com/OCA/maintainer-tools/"
-    "master/tools/repos_with_ids.txt"
-)
+REPOS_WITH_IDS_URL = \
+    'https://raw.githubusercontent.com/ooops404/scripts-utils/' \
+    '11.0/repos_with_id.txt'
 
 
 def get_runbot_ids():
