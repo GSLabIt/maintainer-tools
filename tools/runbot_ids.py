@@ -4,7 +4,8 @@ import re
 
 import requests
 
-REPO_ID_LINE_RE = re.compile(r"^(?P<repo_id>[0-9]+)\|github\.com/OCA/(?P<repo_name>.*)")
+REPO_ID_LINE_RE = \
+    re.compile(r'^(?P<repo_id>[0-9]+)\|github\.com/Ooops404/(?P<repo_name>.*)')
 
 REPOS_WITH_IDS_URL = \
     'https://raw.githubusercontent.com/ooops404/scripts-utils/' \
