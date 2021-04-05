@@ -186,7 +186,7 @@ def gen_one_addon_readme(
                 if fragment:
                     fragments[fragment_name] = fragment
     runbot_id = False
-    if org_name == 'OCA':
+    if org_name.lower() == 'ooops404':
         runbot_id = get_runbot_ids().get(repo_name)
     badges = []
     development_status = manifest.get('development_status', 'Beta').lower()
