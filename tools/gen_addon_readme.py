@@ -111,7 +111,7 @@ RST2HTML_SETTINGS = {
 def make_runbot_badge(runbot_id, branch):
     return (
         'https://img.shields.io/badge/runbot-Try%20me-875A7B.png',
-        'https://runbot.odoo-community.org/runbot/'
+        'https://ops404.it/runbot/'
         '{runbot_id}/{branch}'.format(**locals()),
         'Try me on Runbot',
     )
@@ -121,8 +121,8 @@ def make_weblate_badge(repo_name, branch, addon_name):
     branch = branch.replace('.', '-')
     return (
         'https://img.shields.io/badge/weblate-Translate%20me-F47D42.png',
-        'https://translation.odoo-community.org/projects/'
-        '{repo_name}-{branch}/{repo_name}-{branch}-{addon_name}'.
+        'http://weblate.ops404.it/projects/'
+        '{repo_name}/{addon_name}'.
         format(**locals()),
         'Translate me on Weblate',
     )
@@ -196,11 +196,11 @@ def gen_one_addon_readme(
     if license in LICENSE_BADGES:
         badges.append(LICENSE_BADGES[license])
     badges.append(make_repo_badge(org_name, repo_name, branch, addon_name))
-    if org_name == 'OCA':
+    if org_name.lower() == 'ooops404':
         badges.append(make_weblate_badge(repo_name, branch, addon_name))
     if runbot_id:
         badges.append(make_runbot_badge(runbot_id, branch))
-    elif org_name == 'OCA':
+    elif org_name.lower() == 'ooops404':
         print("Warning: There isn't a runbot_id for this repo: %s" % repo_name)
     authors = [
         a.strip()
