@@ -5,7 +5,7 @@ import re
 import requests
 
 REPO_ID_LINE_RE = \
-    re.compile(r'^(?P<repo_id>[0-9]+)\|github\.com/Ooops404/(?P<repo_name>.*)')
+    re.compile(r'^(?P<repo_id>[0-9]+)\|github\.com:ooops404/(?P<repo_name>.*)')
 
 REPOS_WITH_IDS_URL = \
     'https://raw.githubusercontent.com/ooops404/scripts-utils/' \
@@ -20,6 +20,7 @@ def get_runbot_ids():
         repo_id_line = repo_id_line.strip()
         if not repo_id_line:
             continue
+        print('repo_id_line')
         mo = REPO_ID_LINE_RE.match(repo_id_line)
         if not mo:
             print("warning: invalid repos_with_ids line:", repo_id_line)
