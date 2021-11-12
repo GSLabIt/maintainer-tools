@@ -20,17 +20,19 @@ from .github_login import login
 ALL = ["OCA_REPOSITORY_NAMES", "url"]
 
 
-def get_repositories():
+def get_repositories(org_name='OCA'):
     gh = login()
     all_repos = [
-        repo.name for repo in gh.repositories_by("OCA") if repo.name not in NOT_ADDONS
+        repo.name
+        for repo in gh.repositories_by(org_name)
+        if repo.name not in NOT_ADDONS
     ]
     return all_repos
 
 
-def get_repositories_and_branches(repos=(), branches=(), branch_filter=is_main_branch):
+def get_repositories_and_branches(org_name='OCA', repos=(), branches=MAIN_BRANCHES):
     gh = login()
-    for repo in gh.repositories_by("OCA"):
+    for repo in gh.repositories_by(org_name):
         if repos and repo.name not in repos:
             continue
         if repo.name in NOT_ADDONS:

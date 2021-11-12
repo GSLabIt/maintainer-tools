@@ -25,10 +25,16 @@ from .oca_projects import get_repositories, temporary_clone
     "repos",
     multiple=True,
 )
-def main(new_branch, copier_template, copier_template_vcs_ref, repos):
-    for repo in repos or get_repositories():
+@click.option(
+    "--org_name",
+    "org_name",
+    default='OCA',
+    show_default=True,
+)
+def main(new_branch, copier_template, copier_template_vcs_ref, repos, org_name):
+    for repo in repos or get_repositories(org_name):
         print("=" * 10, repo, "=" * 10)
-        with temporary_clone(repo):
+        with temporary_clone(repo, org_name=org_name):
             # check if branch already exists
             if subprocess.check_output(
                 ["git", "ls-remote", "--head", "origin", new_branch]
@@ -37,10 +43,10 @@ def main(new_branch, copier_template, copier_template_vcs_ref, repos):
                 continue
             # set git user/email
             subprocess.check_call(
-                ["git", "config", "user.name", "oca-git-bot"],
+                ["git", "config", "user.name", "Giovanni"],
             )
             subprocess.check_call(
-                ["git", "config", "user.email", "oca-git-bot@odoo-community.org"],
+                ["git", "config", "user.email", "giovanni@gslab.it"],
             )
             # create empty git branch
             subprocess.check_call(["git", "checkout", "--orphan", new_branch])
