@@ -14,7 +14,7 @@ import subprocess
 import tempfile
 
 import appdirs
-from .config import NOT_ADDONS, is_main_branch
+from .config import MAIN_BRANCHES, NOT_ADDONS, NOT_OOOPS_ADDONS
 from .github_login import login
 
 ALL = ['OCA_PROJECTS', 'OCA_REPOSITORY_NAMES', 'url']
@@ -259,11 +259,20 @@ OOOPS_REPOSITORY_NAMES = {
 
 def get_repositories(org_name='OCA'):
     gh = login()
-    all_repos = [
-        repo.name
-        for repo in gh.repositories_by(org_name)
-        if repo.name not in NOT_ADDONS
-    ]
+    org = gh.organization(org_name)
+    all_repos = []
+    if org_name == 'OCA':
+        all_repos = [
+            repo.name
+            for repo in gh.repositories_by(org_name)
+            if repo.name not in NOT_ADDONS
+        ]
+    elif org_name == 'Ooops404':
+        all_repos = [
+            repo.name
+            for repo in org.repositories()
+            if repo.name not in NOT_OOOPS_ADDONS
+        ]
     return all_repos
 
 
@@ -284,10 +293,15 @@ def get_repositories_and_branches(org_name='OCA', repos=(), branches=MAIN_BRANCH
 
 try:
     OCA_REPOSITORY_NAMES = get_repositories()
-    OCA_REPOSITORY_NAMES += OOOPS_REPOSITORY_NAMES
 except Exception as exc:
     print(exc)
     OCA_REPOSITORY_NAMES = []
+
+try:
+    OCA_REPOSITORY_NAMES += get_repositories(org_name='Ooops404')
+except Exception as exc:
+    print(exc)
+    OCA_REPOSITORY_NAMES += OOOPS_REPOSITORY_NAMES
 
 OCA_REPOSITORY_NAMES.sort()
 

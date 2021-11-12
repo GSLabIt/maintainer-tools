@@ -71,6 +71,12 @@ NOT_ADDONS = {
     "repo-maintainer-conf",
 }
 
+NOT_OOOPS_ADDONS = {
+    'tema_clarico',
+    'theme',
+    'ooops-tmpl-repo',
+    'scripts-utils',
+}
 
 def is_main_branch(branch):
     return re.match(r"^(6\.1|\d+\.0)$", branch)
