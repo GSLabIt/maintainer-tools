@@ -12,7 +12,6 @@ for repo_list_line in open("repos_with_ids.txt"):
     m = re.search(r"(\d+)\|github.com/OCA/(.*)", repo_list_line)
     repo_name = m.group(2)
     repo_id = m.group(1)
-    print(repo_name)
     if not os.path.exists(repo_name):
         subprocess.call(["hub", "clone", "--quiet", "OCA/" + repo_name])
 

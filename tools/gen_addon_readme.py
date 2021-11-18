@@ -144,12 +144,15 @@ def make_runboat_badge(repo, branch):
 
 
 def make_weblate_badge(repo_name, branch, addon_name):
-    branch = branch.replace(".", "-")
+    branch = branch.replace('.', '-')
+    slug = '{repo_name}/{addon_name}'.format(**locals())
+    if branch != '12-0':
+        slug = '{repo_name}-{branch}/{addon_name}'.format(
+            **locals()
+        )
     return (
         'https://img.shields.io/badge/weblate-Translate%20me-F47D42.png',
-        'http://weblate.ops404.it/projects/'
-        '{repo_name}/{addon_name}'.
-        format(**locals()),
+        'http://weblate.ops404.it/projects/{}'.format(slug),
         'Translate me on Weblate',
     )
 
