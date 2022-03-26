@@ -293,12 +293,12 @@ def get_repositories_and_branches(org_name='OCA', repos=(), branches=MAIN_BRANCH
 
 try:
     OCA_REPOSITORY_NAMES = get_repositories()
-except Exception as exc:
+except Exception:
     OCA_REPOSITORY_NAMES = []
 
 try:
     OCA_REPOSITORY_NAMES += get_repositories(org_name='Ooops404')
-except Exception as exc:
+except Exception:
     OCA_REPOSITORY_NAMES += OOOPS_REPOSITORY_NAMES
 
 OCA_REPOSITORY_NAMES.sort()
