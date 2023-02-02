@@ -18,15 +18,14 @@ from .manifest import read_manifest
 
 def _make_issue_format(org, repo, fragment_format):
     if fragment_format == "md":
-        return f"[#{{issue}}](https://github.com/{org}/{repo}/issues/{{issue}})"
-    return f"`#{{issue}} <https://github.com/{org}/{repo}/issues/{{issue}}>`_"
+        return f"[#{{issue}}](https://www.ooops404.com/web#id={{issue}}}&model=project.task&view_type=form)"
+    return "`Task #{{issue}} <https://www.ooops404.com/web#id={{issue}}&model=project.task&view_type=form>`_"
 
 
 def _get_towncrier_template(fragment_format):
     return os.path.join(
         os.path.dirname(__file__), f"towncrier-template.{fragment_format}"
     )
-
 
 def _get_readme_fragment_format(addon_dir):
     """Detect the format of the readme fragment to generate (md or rst)"""
