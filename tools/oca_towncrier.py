@@ -16,10 +16,8 @@ from .gitutils import commit_if_needed
 from .manifest import read_manifest
 
 
-def _make_issue_format(org, repo, fragment_format):
-    if fragment_format == "md":
-        return f"[#{{issue}}](https://www.ooops404.com/web#id={{issue}}&model=project.task&view_type=form)"
-    return "`Task #{issue} <https://www.ooops404.com/web#id={issue}&model=project.task&view_type=form>`_"
+def _make_issue_format(org, repo):
+    return "`#{{issue}} <https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form>`_".format(org=org)
 
 
 def _get_towncrier_template(fragment_format):
