@@ -19,6 +19,7 @@ import pypandoc
 
 from .gitutils import commit_if_needed
 from .manifest import get_manifest_path, read_manifest, find_addons, NoManifestFound
+from .runbot_ids import get_runbot_ids
 from ._hash import hash
 
 if sys.version_info >= (3, 8):
@@ -369,7 +370,7 @@ def gen_one_addon_readme(
     if org_name.lower() == 'ooops404':
         badges.append(make_weblate_badge(repo_name, branch, addon_name))
     if runbot_id:
-        badges.append(make_runbot_badge(runbot_id, branch))
+        badges.append(make_runboat_badge(runbot_id, branch))
     elif org_name.lower() == 'ooops404':
         print("Warning: There isn't a runbot_id for this repo: %s" % repo_name)
     authors = [
