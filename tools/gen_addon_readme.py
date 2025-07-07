@@ -139,7 +139,7 @@ def make_runboat_badge(runbot_id, branch):
     return (
         'https://img.shields.io/badge/runbot-Try%20me-875A7B.png',
         'https://ops404.it/runbot/'
-        '{runbot_id}/{branch}'.format(**locals()),
+        '{runbot_id}/{branch}'.format(runbot_id=runbot_id, branch=branch),
         'Try me on Runbot',
     )
 
