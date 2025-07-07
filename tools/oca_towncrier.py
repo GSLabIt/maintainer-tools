@@ -16,14 +16,18 @@ from .gitutils import commit_if_needed
 from .manifest import read_manifest
 
 
-def _make_issue_format(org, repo):
-    return "`#{{issue}} <https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form>`_".format(org=org)
+def _make_issue_format(org, repo, fragment_format):
+    if fragment_format == "md":
+        return "[#{{issue}}](https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form)".format(org=org)
+    # Default to rst format
+    return "`#{{issue}} <https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form>`_".format(
+        org=org)
 
 
 def _get_towncrier_template(fragment_format):
-    return os.path.join(
-        os.path.dirname(__file__), f"towncrier-template.{fragment_format}"
-    )
+    return os.path.join(os.path.dirname(__file__),
+                        f"towncrier-template.{fragment_format}")
+
 
 def _get_readme_fragment_format(addon_dir):
     """Detect the format of the readme fragment to generate (md or rst)"""
@@ -33,9 +37,8 @@ def _get_readme_fragment_format(addon_dir):
         return fragment_format
     files = os.listdir(readme_dir)
     files = [
-        f
-        for f in files
-        if not f.startswith(".") and os.path.isfile(os.path.join(readme_dir, f))
+        f for f in files if not f.startswith(".")
+        and os.path.isfile(os.path.join(readme_dir, f))
     ]
     # The first file found with a .md or .rst extension will determine the format
     for f in files:
@@ -60,7 +63,8 @@ def _prepare_config(addon_dir, org, repo):
                 "towncrier": {
                     "template": _get_towncrier_template(fragment_format),
                     "underlines": ["~" if fragment_format == "rst" else ""],
-                    "issue_format": _make_issue_format(org, repo, fragment_format),
+                    "issue_format": _make_issue_format(org, repo,
+                                                       fragment_format),
                     "directory": "readme/newsfragments",
                     "filename": result_file,
                 }
@@ -71,26 +75,25 @@ def _prepare_config(addon_dir, org, repo):
         yield config_file.name, result_file
 
 
-@click.command(
-    help=(
-        "Generate readme/HISTORY.rst from towncrier newsfragments "
-        "stored in readme/newfragments/. This script is meant to be run "
-        "before oca-gen-addon-readme. See https://pypi.org/project/towncrier/ "
-        "for more information and the naming and format of newfragment files."
-    )
-)
+@click.command(help=(
+    "Generate readme/HISTORY.rst from towncrier newsfragments "
+    "stored in readme/newfragments/. This script is meant to be run "
+    "before oca-gen-addon-readme. See https://pypi.org/project/towncrier/ "
+    "for more information and the naming and format of newfragment files."))
 @click.option(
     "--addon-dir",
     "addon_dirs",
     type=click.Path(dir_okay=True, file_okay=False, exists=True),
     multiple=True,
-    help="Directory where addon manifest is located. This option may be repeated.",
+    help=
+    "Directory where addon manifest is located. This option may be repeated.",
 )
 @click.option("--version")
 @click.option("--date")
-@click.option(
-    "--org", default="OCA", help="GitHub organization name.", show_default=True
-)
+@click.option("--org",
+              default="OCA",
+              help="GitHub organization name.",
+              show_default=True)
 @click.option("--repo", required=True, help="GitHub repository name.")
 @click.option(
     "--commit/--no-commit",
@@ -107,7 +110,8 @@ def oca_towncrier(addon_dirs, version, date, org, repo, commit):
         if not any(not f.startswith(".") for f in os.listdir(news_dir)):
             continue
         addon_version = version or read_manifest(addon_dir)["version"]
-        with _prepare_config(addon_dir, org, repo) as (config_file_name, result_file):
+        with _prepare_config(addon_dir, org,
+                             repo) as (config_file_name, result_file):
             subprocess.call(
                 [
                     sys.executable,
