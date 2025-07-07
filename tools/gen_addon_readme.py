@@ -135,7 +135,7 @@ def ensure_pandoc_installed() -> None:
     pypandoc.ensure_pandoc_installed(delete_installer=True)
 
 
-def make_runboat_badge(repo, branch):
+def make_runboat_badge(runbot_id, branch):
     return (
         'https://img.shields.io/badge/runbot-Try%20me-875A7B.png',
         'https://ops404.it/runbot/'
