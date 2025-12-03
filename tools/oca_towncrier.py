@@ -20,7 +20,7 @@ def _make_issue_format(org, repo, fragment_format):
     if fragment_format == "md":
         return "[#{{issue}}](https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form)".format(org=org)
     # Default to rst format
-    return "`#{{issue}} <https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form>`_".format(
+    return "`#{{issue}} <https://www.{org}.com/web#id={{issue}}&model=project.task&view_type=form>`__".format(
         org=org)
 
 
